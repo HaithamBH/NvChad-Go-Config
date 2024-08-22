@@ -3,7 +3,6 @@ local M = {}
 
 M.general = {
   n = {
-    [";"] = { ":", "enter command mode", opts = { nowait = true } },
     ["df"] = {
       function()
         vim.lsp.buf.definition()
@@ -13,6 +12,9 @@ M.general = {
     },
     ["<A-j>"] = { ":m .+1<CR>==", "move line down" },
     ["<A-k>"] = { ":m .-2<CR>==", "move line up" },
+    ["<C-u>"] = { "<C-u>zz", "move half page up" },
+    ["<C-d>"] = { "<C-d>zz", "move half page down" },
+    ["<C-y>"] = { "ggyG", "copy all file content"},
   },
   v = {
     [">"] = { ">gv", "indent" },
@@ -44,6 +46,12 @@ M.dap = {
 M.dap_go = {
   plugin = true,
   n = {
+    ["<leader>dbg"] = {
+      function()
+        require("dap-go").run()
+      end,
+      "Debug go program",
+    },
     ["<leader>dgt"] = {
       function()
         require("dap-go").debug_test()
